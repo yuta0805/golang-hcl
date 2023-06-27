@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/hashicorp/hcl2/gohcl"
-	"github.com/hashicorp/hcl2/hclparse"
-	"github.com/hashicorp/hcl2/hclwrite"
+	"github.com/hashicorp/hcl/v2/gohcl"
+	"github.com/hashicorp/hcl/v2/hclparse"
+	"github.com/hashicorp/hcl/v2/hclwrite"
 )
 
 // 構造体(スキーマ)を用意しておく(decode用)
@@ -24,19 +24,27 @@ type Pod struct {
 }
 
 func main() {
+	// parseをcreateする
 	parser := hclparse.NewParser()
+	// 読みたいファイルparseする
+	// hcl.File型帰ってくる
 	file, diag := parser.ParseHCLFile("./basic.hcl")
 	if diag != nil {
 		log.Fatalf("Failed to parse: %v", diag.Error())
 	}
 
 	var config Config
+	// gohcl.DecodeBody(ファイルの中身, ファイル名, 構造体のポインタ)
+	// 構造体のポインタにファイルの中身をdecodeしてくれる(構造体のフィールドとparseした内容mappingしてくれる)
 	configDiags := gohcl.DecodeBody(file.Body, nil, &config)
 	if configDiags.HasErrors() {
 		log.Fatalf("Failed to decodeです: %v", configDiags.Error())
 	}
 
+	// hclwrite.NewEmptyFile()で空のhclファイルを作成
 	newFile := hclwrite.NewEmptyFile()
+	// gohcl.EncodeIntoBody(構造体のポインタ, hclwrite.File.Body)
+	// 構造体のfieldをhclwrite.File.Bodyにencodeしてくれる(fileへ書き込み)
 	gohcl.EncodeIntoBody(&config, newFile.Body())
 	fmt.Println(string(newFile.Bytes()))
 	content := newFile.Bytes()
