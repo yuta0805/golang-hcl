@@ -4,54 +4,6 @@ import (
 	yaml3 "gopkg.in/yaml.v3"
 )
 
-// type TestYamlConfig struct {
-// 	Kind     string `yaml:"kind"`
-// 	Metadata struct {
-// 		Name        string `yaml:"name"`
-// 		DisplayName string `yaml:"displayName"`
-// 	} `yaml:"metadata"`
-// 	Spec struct {
-// 		Indicator struct {
-// 			Metadata struct {
-// 				Name string `yaml:"name"`
-// 			} `yaml:"metadata"`
-// 			Spec struct {
-// 				Description string `yaml:"description"`
-// 				RatioMetric struct {
-// 					Counter bool `yaml:"counter"`
-// 					Good    struct {
-// 						MetricSource struct {
-// 							MetricSourceRef string `yaml:"metricSourceRef"`
-// 							Type            string `yaml:"type"`
-// 							Spec            struct {
-// 								Query string `yaml:"query"`
-// 							} `yaml:"spec"`
-// 						} `yaml:"metricSource"`
-// 					} `yaml:"good"`
-// 					Total struct {
-// 						MetricSource struct {
-// 							MetricSourceRef string `yaml:"metricSourceRef"`
-// 							Type            string `yaml:"type"`
-// 							Spec            struct {
-// 								Query string `yaml:"query"`
-// 							} `yaml:"spec"`
-// 						} `yaml:"metricSource"`
-// 					} `yaml:"total"`
-// 				} `yaml:"ratioMetric"`
-// 			} `yaml:"spec"`
-// 		} `yaml:"indicator"`
-// 		TimeWindow []struct {
-// 			Duration  string `yaml:"duration"`
-// 			IsRolling bool   `yaml:"isRolling"`
-// 		} `yaml:"timeWindow"`
-// 		BudgetingMethod string `yaml:"budgetingMethod"`
-// 		Objectives      []struct {
-// 			DisplayName string  `yaml:"displayName"`
-// 			Target      float64 `yaml:"target"`
-// 		} `yaml:"objectives"`
-// 	} `yaml:"spec"`
-// }
-
 type TestYamlConfig struct {
 	Kind        string   `yaml:"kind"`
 	Metadata    struct {

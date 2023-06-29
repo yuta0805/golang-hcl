@@ -84,6 +84,8 @@ func main() {
 				for k, attr := range body.Attributes() {
 					fmt.Println(k) // attribute名 (cidr_blockとか)
 					fmt.Println(string(attr.Expr().BuildTokens(nil).Bytes()))
+
+					fmt.Printf("---------\n")
 				}
 			}
 		}
