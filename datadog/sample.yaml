@@ -1,0 +1,38 @@
+apiVersion: openslo/v1
+kind: SLO
+metadata:
+  name: TEST給与計算
+  displayName: 管理者としてpoint計算ができること
+  labels:
+    team: 給与
+spec:
+  service: freee人事労務
+  indicator:
+    metadata:
+      name: Availability
+    spec:
+      description: 管理者としてpoint計算ができること 成功したリクエスト/総リクエスト数
+      ratioMetric:
+        counter: true
+        good:
+          metricSource:
+            metricSourceRef: metric
+            type: Datadog
+            spec:
+              query: sum:hoge.sli.hr.nencho{*}.as_count()
+        total:
+          metricSource:
+            metricSourceRef: metric
+            type: Datadog
+            spec:
+              query: sum:hoge.sli.hr.nencho.good{*}.as_count()
+  timeWindow:
+    - duration: 30d
+      isRolling: true
+
+  budgetingMethod: Occurrences 
+  objectives:
+    - displayName: Target #固定
+      target: 0.98
+    - displayName: Warning #固定
+      target: 0.99
